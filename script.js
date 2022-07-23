@@ -11,19 +11,26 @@ search.addEventListener("click", function() {
     localStorage.setItem("citySearch", citySearch.value);
     var cityName = localStorage.getItem("citySearch");
     let queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=" + APIkey;
+    localStorage.setItem(cityName, response.data);
+    getData()
     
+})
+function getData() {
     fetch(queryURL)
-        .then(function (response) {
+    .then(function (response) {
             console.log(response);
             return response.json();
         })
         .then(function (data) {
             console.log(data);
         });
-        cityToday.innerHTML = response.data.name;
-        tempToday.innerHTML = "Temp " + response.data.main.temp;
-        windToday.innerHTML = "Wind Speed (mph) " + response.data.main.wind.speed;
-        humidityToday.innerHTML = "Humidity (%) " + response.data.main.humidity;
-
-    })
+        
+        
+    }
     
+    
+cityToday.innerHTML = response.data.name;
+tempToday.innerHTML = "Temp " + response.data.main.temp;
+windToday.innerHTML = "Wind Speed (mph) " + response.data.main.wind.speed;
+humidityToday.innerHTML = "Humidity (%) " + response.data.main.humidity;
+$("<button id='cityHistory' class='button'>" + citySearch + "</button>").appendTo(".history");
